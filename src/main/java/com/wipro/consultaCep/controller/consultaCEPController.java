@@ -16,7 +16,7 @@ import java.io.IOException;
 public class consultaCEPController {
 
     @PostMapping
-    public ResponseEntity<String> cadastrar(@Valid @RequestBody Address endereco) throws IOException {
+    public ResponseEntity<String> consultarEndereco(@Valid @RequestBody Address endereco) throws IOException {
         String st= consultarEnderecoPorCep(endereco.getCep());
         return ResponseEntity.ok().body(st);
     }
