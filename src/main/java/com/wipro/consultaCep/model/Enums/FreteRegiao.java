@@ -8,7 +8,7 @@ public enum FreteRegiao {
     SUDESTE(7.85),
     SUL(17.30);
 
-    private double valorFrete;
+    private final double valorFrete;
 
     FreteRegiao(double valorFrete) {
         this.valorFrete = valorFrete;

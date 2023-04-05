@@ -27,7 +27,7 @@ public class ServiceConsultaCEP {
     }
 
     private String removeCaracteresEspeciais(String cep) {
-        return cep.replaceAll("[^\\d]", "");
+        return cep.replaceAll("\\D", "");
     }
 
     private void verficaQuantidadeCaracteresCEP(String cep) {
