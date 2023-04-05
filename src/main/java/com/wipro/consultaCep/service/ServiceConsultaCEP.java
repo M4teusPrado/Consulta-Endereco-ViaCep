@@ -1,5 +1,6 @@
 package com.wipro.consultaCep.service;
 
+import com.wipro.consultaCep.DTO.AddressRequest;
 import com.wipro.consultaCep.DTO.AddressResponse;
 import com.wipro.consultaCep.model.Endereco;
 import org.springframework.http.HttpStatus;
@@ -13,8 +14,8 @@ public class ServiceConsultaCEP {
 
     private static final Long QNTD_CARACTERES_CEP = 8L;
 
-    public AddressResponse consultarEnderecoPorCep(Endereco endereco) throws IOException {
-        String cep = validarCEP(endereco.getCep());
+    public AddressResponse consultarEnderecoPorCep(AddressRequest enderecoDTO) throws IOException {
+        String cep = validarCEP(enderecoDTO.getCep());
         Endereco enderecoEncontrado = buscarEndereco(cep);
         validarEnderecoEncontrado(enderecoEncontrado);
         return new AddressResponse(enderecoEncontrado);
