@@ -1,5 +1,8 @@
 package com.wipro.consultaCep.service;
 
+import com.google.gson.Gson;
+import com.wipro.consultaCep.model.Endereco;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +17,7 @@ public class ViaCepAPIImpl implements ViaCepAPI {
     private static final String URL_VIACEP = "https://viacep.com.br/ws/";
 
     @Override
-    public String consultarEnderecoPorCep(String cep) throws IOException {
+    public Endereco consultarEnderecoPorCep(String cep) throws IOException {
         URL url = construirUrl(cep);
         InputStream is = conectarComApi(url);
         return extrairEnderecoDoJson(is);
@@ -29,13 +32,13 @@ public class ViaCepAPIImpl implements ViaCepAPI {
         return connection.getInputStream();
     }
 
-    private String extrairEnderecoDoJson(InputStream is) throws IOException {
+    private Endereco extrairEnderecoDoJson(InputStream is) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
         StringBuilder response = new StringBuilder();
         String buffer;
         while ((buffer = br.readLine()) != null)
             response.append(buffer);
         br.close();
-        return response.toString();
+        return new Gson().fromJson(String.valueOf(response), Endereco.class);
     }
 }
