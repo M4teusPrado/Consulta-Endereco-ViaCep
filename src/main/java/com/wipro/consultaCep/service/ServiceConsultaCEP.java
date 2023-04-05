@@ -2,7 +2,6 @@ package com.wipro.consultaCep.service;
 
 import com.wipro.consultaCep.DTO.AddressResponse;
 import com.wipro.consultaCep.model.Endereco;
-import com.wipro.consultaCep.model.Enums.FreteRegiao;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -16,8 +15,9 @@ public class ServiceConsultaCEP {
 
     public AddressResponse consultarEnderecoPorCep(Endereco endereco) throws IOException {
         String cep = validarCEP(endereco.getCep());
-        endereco = new ViaCepAPIImpl().consultarEnderecoPorCep(cep);
-        return new AddressResponse(endereco);
+        Endereco enderecoEncontrado = buscarEndereco(cep);
+        validarEnderecoEncontrado(enderecoEncontrado);
+        return new AddressResponse(enderecoEncontrado);
     }
 
     private String validarCEP(String cep) {
@@ -31,7 +31,22 @@ public class ServiceConsultaCEP {
     }
 
     private void verficaQuantidadeCaracteresCEP(String cep) {
+        if (cep == null || cep.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CEP obrigatório.");
+        }
+
         if (cep.length() != QNTD_CARACTERES_CEP)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CEP é invalido");
+    }
+
+    private Endereco buscarEndereco(String cep) throws IOException {
+        return new ViaCepAPIImpl().consultarEnderecoPorCep(cep);
+    }
+
+    private void validarEnderecoEncontrado(Endereco enderecoEncontrado) {
+        if (enderecoEncontrado.getCep() == null || enderecoEncontrado.getLogradouro() == null
+                || enderecoEncontrado.getBairro() == null || enderecoEncontrado.getLocalidade() == null || enderecoEncontrado.getUf() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Endereço não encontrado para o CEP informado.");
+        }
     }
 }
