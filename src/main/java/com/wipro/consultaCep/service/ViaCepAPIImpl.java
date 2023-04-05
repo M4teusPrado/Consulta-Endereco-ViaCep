@@ -16,18 +16,17 @@ public class ViaCepAPIImpl implements ViaCepAPI {
 
     private static final String URL_VIACEP = "https://viacep.com.br/ws/";
 
-    @Override
     public Endereco consultarEnderecoPorCep(String cep) throws IOException {
         URL url = construirUrl(cep);
         InputStream is = conectarComApi(url);
         return extrairEnderecoDoJson(is);
     }
 
-    private URL construirUrl(String cep) throws MalformedURLException {
+    public static URL construirUrl(String cep) throws MalformedURLException {
         return new URL(URL_VIACEP + cep + "/json/");
     }
 
-    private InputStream conectarComApi(URL url) throws IOException {
+    public static InputStream conectarComApi(URL url) throws IOException {
         URLConnection connection = url.openConnection();
         return connection.getInputStream();
     }

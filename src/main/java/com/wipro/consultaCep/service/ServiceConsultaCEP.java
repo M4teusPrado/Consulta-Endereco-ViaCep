@@ -20,7 +20,7 @@ public class ServiceConsultaCEP {
         return new AddressResponse(enderecoEncontrado);
     }
 
-    private String validarCEP(String cep) {
+    public String validarCEP(String cep) {
         cep = removeCaracteresEspeciais(cep);
         verficaQuantidadeCaracteresCEP(cep);
         return cep;
@@ -43,7 +43,7 @@ public class ServiceConsultaCEP {
         return new ViaCepAPIImpl().consultarEnderecoPorCep(cep);
     }
 
-    private void validarEnderecoEncontrado(Endereco enderecoEncontrado) {
+    public void validarEnderecoEncontrado(Endereco enderecoEncontrado) {
         if (enderecoEncontrado.getCep() == null || enderecoEncontrado.getLogradouro() == null
                 || enderecoEncontrado.getBairro() == null || enderecoEncontrado.getLocalidade() == null || enderecoEncontrado.getUf() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Endereço não encontrado para o CEP informado.");

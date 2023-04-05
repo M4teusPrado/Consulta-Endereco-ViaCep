@@ -19,6 +19,10 @@ public class ControllerConsultaCEP {
     @Autowired
     ServiceConsultaCEP serviceConsultaCEP;
 
+    public ControllerConsultaCEP(ServiceConsultaCEP serviceConsultaCEP) {
+        this.serviceConsultaCEP = serviceConsultaCEP;
+    }
+
     @PostMapping
     public AddressResponse consultarEndereco(@Valid @RequestBody Endereco endereco)  {
         try {
