@@ -3,7 +3,7 @@ package com.wipro.consultaCep.controller;
 import com.wipro.consultaCep.DTO.AddressResponse;
 import com.wipro.consultaCep.model.Endereco;
 import com.wipro.consultaCep.service.ServiceConsultaCEP;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
