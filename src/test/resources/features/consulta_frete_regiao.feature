@@ -3,7 +3,6 @@ Feature: Consulta do frete por regiao
   Eu quero consultar o valor do frete
   Para saber se continuo com a compra ou não
 
-
   Scenario: Consultar frete por CEP Regiao
     Given que informei o CEP, e sua localização seja em "AM"
     When eu realizo a consulta de frete por regiao
