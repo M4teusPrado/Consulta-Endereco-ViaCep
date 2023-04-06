@@ -40,7 +40,7 @@ public class ServiceConsultaCEP {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "CEP é invalido");
     }
 
-    private Endereco buscarEndereco(String cep) throws IOException {
+    public Endereco buscarEndereco(String cep) throws IOException {
         return new ViaCepAPIImpl().consultarEnderecoPorCep(cep);
     }
 

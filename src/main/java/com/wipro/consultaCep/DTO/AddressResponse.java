@@ -25,6 +25,10 @@ public class AddressResponse {
         this.frete = gerarFrete(endereco.getUf());
     }
 
+    public AddressResponse() {
+
+    }
+
     private Double gerarFrete(String uf) {
         return RegioesDoBrasil.obterRegiaoPorEstado(uf).getValorFrete();
     }

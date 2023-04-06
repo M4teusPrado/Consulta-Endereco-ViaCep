@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ViaCepAPIImplTest {
 
-
     @Test
     public void testConstruirUrl() throws MalformedURLException {
         String cep = "01001000";

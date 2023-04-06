@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
+import com.wipro.consultaCep.DTO.AddressRequest;
 import com.wipro.consultaCep.DTO.AddressResponse;
 import com.wipro.consultaCep.controller.ControllerConsultaCEP;
 import com.wipro.consultaCep.model.Endereco;
@@ -35,22 +36,27 @@ public class ControllerConsultaCEPTest {
 
     @Test
     public void testConsultarEnderecoComSucesso() throws IOException {
-        Endereco endereco = new Endereco();
-        endereco.setCep("01001000");
-        endereco.setLogradouro("Praça da Sé");
-        endereco.setBairro("Sé");
-        endereco.setLocalidade("São Paulo");
-        endereco.setUf("SP");
-        AddressResponse addressResponseEsperado = new AddressResponse(endereco);
 
-        when(serviceConsultaCEP.consultarEnderecoPorCep(endereco)).thenReturn(addressResponseEsperado);
+
+        AddressRequest endereco = new AddressRequest();
+        endereco.setCep("01001000");
+
+        AddressResponse enderecoEsperado = new AddressResponse();
+        enderecoEsperado.setCep("01001000");
+        enderecoEsperado.setRua("Praça da Sé");
+        enderecoEsperado.setBairro("Sé");
+        enderecoEsperado.setCidade("São Paulo");
+        enderecoEsperado.setEstado("SP");
+        enderecoEsperado.setEstado("SP");
+        when(serviceConsultaCEP.consultarEnderecoPorCep(endereco)).thenReturn(enderecoEsperado);
+
         AddressResponse addressResponse = controllerConsultaCEP.consultarEndereco(endereco);
-        Assert.assertEquals(addressResponseEsperado, addressResponse);
+        Assert.assertEquals(enderecoEsperado, addressResponse);
     }
 
     @Test(expected = ResponseStatusException.class)
     public void testConsultarEnderecoComErro() throws IOException {
-        Endereco endereco = new Endereco();
+        AddressRequest endereco = new AddressRequest();
         endereco.setCep("12345678");
         when(serviceConsultaCEP.consultarEnderecoPorCep(endereco)).thenThrow(new ResponseStatusException(HttpStatus.NOT_FOUND));
         controllerConsultaCEP.consultarEndereco(endereco);
